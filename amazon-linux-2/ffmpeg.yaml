@@ -1,0 +1,23 @@
+# FFmpeg 4.4 - Amazon Linux Build Component
+# https://johnvansickle.com/ffmpeg/
+# https://stackoverflow.com/a/21858105
+
+name: ffmpeg
+description: Installs ffmpeg on Amazon Linux 2.
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: BuildStep
+        action: ExecuteBash
+        inputs:
+          commands:
+            - sudo su -
+            - cd /tmp
+            - wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+            - mkdir -p /opt/ffmpeg
+            - tar -xf ffmpeg-release-amd64-static.tar.xz --strip-components=1 -C /opt/ffmpeg
+            - ln -s /opt/ffmpeg/ffmpeg /usr/bin/ffmpeg
+            - ln -s /opt/ffmpeg/ffprobe /usr/bin/ffprobe
+            - ln -s /opt/ffmpeg/qt-faststart /usr/bin/qt-faststart
